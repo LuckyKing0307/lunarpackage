@@ -90,6 +90,17 @@ class ProductVariant extends BaseModel implements Contracts\ProductVariant, Purc
         return $this->belongsTo(Product::modelClass())->withTrashed();
     }
 
+    public function productOptionValues()
+    {
+        $prefix = config('lunar.database.table_prefix');
+        return $this->belongsToMany(
+            ProductOptionValue::class,
+            "{$prefix}product_option_value_product_variant", // имя таблицы
+            'variant_id', // локальный ключ для этой модели
+            'value_id'
+        )->withTimestamps();
+    }
+
     public function taxClass(): BelongsTo
     {
         return $this->belongsTo(TaxClass::modelClass());
