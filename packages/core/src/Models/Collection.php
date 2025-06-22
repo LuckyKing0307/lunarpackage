@@ -103,7 +103,25 @@ class Collection extends BaseModel implements Contracts\Collection, SpatieHasMed
             'position',
         ])->withTimestamps()->orderByPivot('position');
     }
+    public function childProducts(): BelongsToMany
+    {
+        $prefix      = config('lunar.database.table_prefix');
+        $pivot       = "{$prefix}collection_product";
+        $collections = "{$prefix}collections";          // обычно lunar_collections
 
+        return $this->belongsToMany(
+            Product::modelClass(),
+            $pivot,            // pivot-таблица
+            'collection_id',   // FK на коллекцию
+            'product_id'       // FK на товар
+        )
+            ->join($collections, "{$collections}.id", '=', "{$pivot}.collection_id")
+            ->where("{$collections}.parent_id", $this->getKey())   // только прямые дети
+            ->withPivot(['position'])
+            ->withTimestamps()
+            ->orderBy("{$pivot}.position")
+            ->select("{$pivot}.*", "{$collections}.*", Product::modelTable().'.*'); // избегаем конфликтов имён
+    }
     /**
      * Get the translated name of ancestor collections.
      */
