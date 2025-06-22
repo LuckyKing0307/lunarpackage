@@ -105,6 +105,7 @@ class Collection extends BaseModel implements Contracts\Collection, SpatieHasMed
     }
 
     /**
+     *
      * Get the translated name of ancestor collections.
      */
     public function getBreadcrumbAttribute(): \Illuminate\Support\Collection
