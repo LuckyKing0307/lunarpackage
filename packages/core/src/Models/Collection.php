@@ -105,6 +105,7 @@ class Collection extends BaseModel implements Contracts\Collection, SpatieHasMed
     }
     public function childProducts(): BelongsToMany
     {
+
         $prefix      = config('lunar.database.table_prefix');
         $pivot       = "{$prefix}collection_product";
         $collections = "{$prefix}collections";          // обычно lunar_collections
