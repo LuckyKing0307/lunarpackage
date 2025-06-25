@@ -34,6 +34,12 @@ return [
                     'decrease' => ':percentage% decrease from :total last period',
                     'neutral' => 'No change compared to last period',
                 ],
+                'all' => [
+                    'label' => 'Sales past all days',
+                    'increase' => ':percentage% increase from :total last period',
+                    'decrease' => ':percentage% decrease from :total last period',
+                    'neutral' => 'No change compared to last period',
+                ],
                 'stat_six' => [
                     'label' => 'Sales past 30 days',
                     'increase' => ':percentage% increase from :total last period',
@@ -52,6 +58,9 @@ return [
                 'yaxis' => [
                     'label' => 'Turnover :currency',
                 ],
+                'all' => [
+                    'label' => 'Sales past all days',
+                ],
             ],
             'order_sales_chart' => [
                 'heading' => 'Orders / Sales Report',
@@ -59,6 +68,9 @@ return [
                     'label' => 'Orders',
                 ],
                 'series_two' => [
+                    'label' => 'Revenue',
+                ],
+                'all' => [
                     'label' => 'Revenue',
                 ],
                 'yaxis' => [

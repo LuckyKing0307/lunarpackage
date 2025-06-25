@@ -12,11 +12,6 @@ class OrderStatsOverview extends BaseWidget
 {
     protected static ?string $pollingInterval = '60s';
 
-    /**
-     * Текущий выбранный фильтр.
-     * Filament сам добавит public-свойство $filter в URL (?filter=xxx) и в session.
-     */
-    public string $filter = 'all';
     protected function getOrderQuery(?\DateTime $from = null, ?\DateTime $to = null)
     {
         return Order::whereNotNull('placed_at')
@@ -25,18 +20,10 @@ class OrderStatsOverview extends BaseWidget
                 $to,
             ]);
     }
-    protected function getFilters(): array
+    protected function getOrderAll()
     {
-        return [
-            'all'      => __('Все карточки'),
-            'today'    => __('Сегодня'),
-            '7_days'   => __('7 дней'),
-            '30_days'  => __('30 дней'),
-            'counts'   => __('Только количество'),
-            'totals'   => __('Только суммы'),
-        ];
+        return Order::whereNotNull('placed_at');
     }
-
     protected function getStats(): array
     {
         $date = now()->settings([
@@ -47,6 +34,8 @@ class OrderStatsOverview extends BaseWidget
             from: $date->clone()->subDays(30),
             to: $date->clone(),
         );
+
+        $all = $this->getOrderAll();
 
         $previous30Days = $this->getOrderQuery(
             from: $date->clone()->subDays(60),
@@ -80,6 +69,7 @@ class OrderStatsOverview extends BaseWidget
             $this->getStatTotal($today, $yesterday, 'stat_four'),
             $this->getStatTotal($current7Days, $previous7Days, 'stat_five'),
             $this->getStatTotal($current30Days, $previous30Days, 'stat_six'),
+            $this->getStatTotal($all, $all, 'all'),
         ];
     }
 
