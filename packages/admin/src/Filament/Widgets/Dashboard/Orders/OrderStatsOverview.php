@@ -12,6 +12,11 @@ class OrderStatsOverview extends BaseWidget
 {
     protected static ?string $pollingInterval = '60s';
 
+    /**
+     * Текущий выбранный фильтр.
+     * Filament сам добавит public-свойство $filter в URL (?filter=xxx) и в session.
+     */
+    public string $filter = 'all';
     protected function getOrderQuery(?\DateTime $from = null, ?\DateTime $to = null)
     {
         return Order::whereNotNull('placed_at')
@@ -19,6 +24,17 @@ class OrderStatsOverview extends BaseWidget
                 $from,
                 $to,
             ]);
+    }
+    protected function getFilters(): array
+    {
+        return [
+            'all'      => __('Все карточки'),
+            'today'    => __('Сегодня'),
+            '7_days'   => __('7 дней'),
+            '30_days'  => __('30 дней'),
+            'counts'   => __('Только количество'),
+            'totals'   => __('Только суммы'),
+        ];
     }
 
     protected function getStats(): array
