@@ -65,6 +65,7 @@ class LunarPanelManager
         Resources\TaxZoneResource::class,
         Resources\TaxRateResource::class,
         Resources\EnquiryResource::class,
+        Resources\ExcelImportResource::class,
     ];
 
     protected static $pages = [
