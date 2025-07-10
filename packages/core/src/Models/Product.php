@@ -71,6 +71,8 @@ class Product extends BaseModel implements Contracts\Product, SpatieHasMedia
         'product_type_id',
         'status',
         'brand_id',
+        'external_id',
+        'sku',
     ];
 
     /**

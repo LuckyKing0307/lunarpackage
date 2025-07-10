@@ -71,6 +71,11 @@ class Collection extends BaseModel implements Contracts\Collection, SpatieHasMed
         return ['collection_group_id'];
     }
 
+    public function getGroupId()
+    {
+        return $this->collection_group_id;
+    }
+
     /**
      * Return the group relationship.
      */
@@ -100,6 +105,7 @@ class Collection extends BaseModel implements Contracts\Collection, SpatieHasMed
     }
 
     /**
+     *
      * Get the translated name of ancestor collections.
      */
     public function getBreadcrumbAttribute(): \Illuminate\Support\Collection

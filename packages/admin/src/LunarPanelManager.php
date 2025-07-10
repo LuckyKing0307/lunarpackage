@@ -64,14 +64,13 @@ class LunarPanelManager
         Resources\TaxClassResource::class,
         Resources\TaxZoneResource::class,
         Resources\TaxRateResource::class,
-        Resources\CarouselItemResource::class,
-        Resources\RecommendationResource::class,
-        Resources\PopularResource::class,
+        Resources\EnquiryResource::class,
+        Resources\ExcelImportResource::class,
+        Resources\ImportImagesResource::class,
     ];
 
     protected static $pages = [
         Pages\Dashboard::class,
-        Pages\MyPage::class,
     ];
 
     protected static $widgets = [

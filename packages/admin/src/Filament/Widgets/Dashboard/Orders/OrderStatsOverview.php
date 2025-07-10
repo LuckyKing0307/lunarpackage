@@ -20,7 +20,10 @@ class OrderStatsOverview extends BaseWidget
                 $to,
             ]);
     }
-
+    protected function getOrderAll()
+    {
+        return Order::whereNotNull('placed_at');
+    }
     protected function getStats(): array
     {
         $date = now()->settings([
@@ -31,6 +34,8 @@ class OrderStatsOverview extends BaseWidget
             from: $date->clone()->subDays(30),
             to: $date->clone(),
         );
+
+        $all = $this->getOrderAll();
 
         $previous30Days = $this->getOrderQuery(
             from: $date->clone()->subDays(60),
@@ -64,6 +69,7 @@ class OrderStatsOverview extends BaseWidget
             $this->getStatTotal($today, $yesterday, 'stat_four'),
             $this->getStatTotal($current7Days, $previous7Days, 'stat_five'),
             $this->getStatTotal($current30Days, $previous30Days, 'stat_six'),
+            $this->getStatTotal($all, $all, 'all'),
         ];
     }
 
