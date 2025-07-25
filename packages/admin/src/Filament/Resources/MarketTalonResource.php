@@ -43,14 +43,14 @@ class MarketTalonResource extends Resource
                 CheckboxList::make('warranty_types')
                     ->label('Типы гарантии')
                     ->options([
-                        'cleaning' => 'Yuvilishga chidamliligi – 15 yil',
-                        'watering' => 'Namlikka chidamliligi – 5 yil',
-                        'balooning' => 'Ishib ketmasligiga – 5 yil',
-                        'lifting' => 'Ko‘tarilib ketmasligiga – 5 yil',
-                        'weather' => 'Ichida havo to‘lib, qopqoqdek o‘ynamasligiga – 5 yil',
-                        'dancing' => 'Siljib ketmasligiga – 5 yil',
-                        'case' => 'Qulf (zamok) ochilib ketmasligiga – 5 yil',
-                        'case_water' => 'Qulflari 24 soatgacha suvga chidamli',
+                        'Yuvilishga chidamliligi – 15 yil' => 'Yuvilishga chidamliligi – 15 yil',
+                        'Namlikka chidamliligi – 5 yil' => 'Namlikka chidamliligi – 5 yil',
+                        'Ishib ketmasligiga – 5 yil' => 'Ishib ketmasligiga – 5 yil',
+                        'Ko‘tarilib ketmasligiga – 5 yil' => 'Ko‘tarilib ketmasligiga – 5 yil',
+                        'Ichida havo to‘lib, qopqoqdek o‘ynamasligiga – 5 yil' => 'Ichida havo to‘lib, qopqoqdek o‘ynamasligiga – 5 yil',
+                        'Siljib ketmasligiga – 5 yil' => 'Siljib ketmasligiga – 5 yil',
+                        'Qulf (zamok) ochilib ketmasligiga – 5 yil' => 'Qulf (zamok) ochilib ketmasligiga – 5 yil',
+                        'Qulflari 24 soatgacha suvga chidamli' => 'Qulflari 24 soatgacha suvga chidamli',
                     ])
                     ->columns(2) // Количество колонок
                     ->required(),
