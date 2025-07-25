@@ -43,10 +43,14 @@ class MarketTalonResource extends Resource
                 CheckboxList::make('warranty_types')
                     ->label('Типы гаранитии')
                     ->options([
-                        'tech' => 'Технологии',
-                        'sport' => 'Спорт',
-                        'music' => 'Музыка',
-                        'movies' => 'Кино',
+                        'cleaning' => 'Yuvilishga chidamliligi – 15 yil',
+                        'watering' => 'Namlikka chidamliligi – 5 yil',
+                        'balooning' => 'Ishib ketmasligiga – 5 yil',
+                        'lifting' => 'Ko‘tarilib ketmasligiga – 5 yil',
+                        'weather' => 'Ichida havo to‘lib, qopqoqdek o‘ynamasligiga – 5 yil',
+                        'dancing' => 'Siljib ketmasligiga – 5 yil',
+                        'case' => 'Qulf (zamok) ochilib ketmasligiga – 5 yil',
+                        'case_water' => 'Qulflari 24 soatgacha suvga chidamli',
                     ])
                     ->columns(2) // Количество колонок
                     ->required(),
