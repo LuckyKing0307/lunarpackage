@@ -41,7 +41,7 @@ class MarketTalonResource extends Resource
                     ->required(),
                 Textarea::make('some_letter')->label('Примечание'),
                 CheckboxList::make('warranty_types')
-                    ->label('Типы гаранитии')
+                    ->label('Типы гарантии')
                     ->options([
                         'cleaning' => 'Yuvilishga chidamliligi – 15 yil',
                         'watering' => 'Namlikka chidamliligi – 5 yil',
