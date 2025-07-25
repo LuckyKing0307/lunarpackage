@@ -84,11 +84,6 @@ class MarketTalonResource extends Resource
 
                 TextColumn::make('warranty_period')
                     ->label('Гарантия'),
-
-                TextColumn::make('warranty_types')
-                    ->label('Типы гарантии')
-                    ->formatStateUsing(fn ($state) => is_array($state) ? implode(', ', $state) : $state),
-
                 TextColumn::make('some_letter')
                     ->label('Примечание')
                     ->limit(30),
