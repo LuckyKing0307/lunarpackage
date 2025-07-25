@@ -24,6 +24,7 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Lunar\Admin\Filament\AvatarProviders\GravatarProvider;
 use Lunar\Admin\Filament\Pages;
 use Lunar\Admin\Filament\Resources;
+use Lunar\Admin\Filament\Resources\MarketTalonResource;
 use Lunar\Admin\Filament\Widgets\Dashboard\Orders\AverageOrderValueChart;
 use Lunar\Admin\Filament\Widgets\Dashboard\Orders\LatestOrdersTable;
 use Lunar\Admin\Filament\Widgets\Dashboard\Orders\NewVsReturningCustomersChart;
@@ -67,6 +68,7 @@ class LunarPanelManager
         Resources\EnquiryResource::class,
         Resources\ExcelImportResource::class,
         Resources\ImportImagesResource::class,
+        MarketTalonResource::class
     ];
 
     protected static $pages = [
