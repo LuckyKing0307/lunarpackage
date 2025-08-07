@@ -87,6 +87,7 @@ class Collection extends BaseModel implements Contracts\Collection, SpatieHasMed
         $brands = Brand::whereIn('id', $brandCollectionMap->keys())->get()->keyBy('id');
 
         $allCollectionIds = $brandCollectionMap->flatten(1)->pluck('collection_id')->unique()->values();
+        info($allCollectionIds);
         $collections = Collection::whereIn('id', $allCollectionIds)->get()->keyBy('id');
 
         return $brandCollectionMap->map(function ($items, $brandId) use ($brands, $collections) {
