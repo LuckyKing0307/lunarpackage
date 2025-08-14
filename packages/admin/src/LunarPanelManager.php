@@ -69,6 +69,7 @@ class LunarPanelManager
         Resources\ExcelImportResource::class,
         Resources\ImportImagesResource::class,
         Resources\SeoPageResource::class,
+        Resources\ProjectResource::class,
         MarketTalonResource::class
     ];
 

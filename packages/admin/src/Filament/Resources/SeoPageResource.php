@@ -19,7 +19,7 @@ class SeoPageResource extends Resource
     protected static ?string $model = SeoPage::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
-    protected static ?string $navigationGroup = 'Блог';
+    protected static ?string $navigationGroup = 'Контент';
 
 
     public static function form(Form $form): Form
