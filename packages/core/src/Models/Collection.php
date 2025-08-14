@@ -76,8 +76,7 @@ class Collection extends BaseModel implements Contracts\Collection, SpatieHasMed
     public function getBrands()
     {
 
-        $cacheKey = 'brands_img_2_'.$this->id;
-
+        $cacheKey = 'collections_comp';
         return Cache::remember($cacheKey, now()->addDay(), function () {
             $collectionIds = $this->children()->pluck('id')->all();
             $brandCollectionMap = DB::table('lunar_products as p')
@@ -89,10 +88,19 @@ class Collection extends BaseModel implements Contracts\Collection, SpatieHasMed
                 ->groupBy('brand_id');
 
             $brands = Brand::whereIn('id', $brandCollectionMap->keys())->get()->keyBy('id');
-            return $brandCollectionMap->map(function ($items, $brandId) use ($brands) {
+
+            $allCollectionIds = $brandCollectionMap->flatten(1)->pluck('collection_id')->unique()->values();
+            $collections = Collection::whereIn('id', $allCollectionIds)->get()->keyBy('id');
+
+            return $brandCollectionMap->map(function ($items, $brandId) use ($brands, $collections) {
+                $collectionModels = $items->pluck('collection_id')
+                    ->unique()
+                    ->map(fn($id) => $collections[$id])
+                    ->filter();
+
                 return [
                     'brand' => $brands[$brandId],
-                    'img' => $brands[$brandId]->getFirstMediaUrl('images'),
+                    'collections' => $collectionModels->values(),
                 ];
             })->values();
         });
