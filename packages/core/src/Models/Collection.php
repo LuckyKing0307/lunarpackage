@@ -75,31 +75,34 @@ class Collection extends BaseModel implements Contracts\Collection, SpatieHasMed
 
     public function getBrands()
     {
-        $collectionIds = $this->children()->pluck('id')->all();
-        $brandCollectionMap = DB::table('lunar_products as p')
-            ->join('lunar_collection_product as cp', 'cp.product_id', '=', 'p.id')
-            ->whereIn('cp.collection_id', $collectionIds)
-            ->whereNotNull('p.brand_id')
-            ->select('p.brand_id', 'cp.collection_id')
-            ->get()
-            ->groupBy('brand_id');
 
-        $brands = Brand::whereIn('id', $brandCollectionMap->keys())->get()->keyBy('id');
+        $cacheKey = 'brands_'.$this->id;
+        return Cache::remember($cacheKey, now()->addDay(), function () {
+            $collectionIds = $this->children()->pluck('id')->all();
+            $brandCollectionMap = DB::table('lunar_products as p')
+                ->join('lunar_collection_product as cp', 'cp.product_id', '=', 'p.id')
+                ->whereIn('cp.collection_id', $collectionIds)
+                ->whereNotNull('p.brand_id')
+                ->select('p.brand_id', 'cp.collection_id')
+                ->get()
+                ->groupBy('brand_id');
 
-        $allCollectionIds = $brandCollectionMap->flatten(1)->pluck('collection_id')->unique()->values();
-        $collections = Collection::whereIn('id', $allCollectionIds)->get()->keyBy('id');
+            $brands = Brand::whereIn('id', $brandCollectionMap->keys())->get()->keyBy('id');
 
-        return $brandCollectionMap->map(function ($items, $brandId) use ($brands, $collections) {
-            $collectionModels = $items->pluck('collection_id')
-                ->unique()
-                ->map(fn($id) => $collections[$id])
-                ->filter();
+            $allCollectionIds = $brandCollectionMap->flatten(1)->pluck('collection_id')->unique()->values();
+            $collections = Collection::whereIn('id', $allCollectionIds)->get()->keyBy('id');
+            return $brandCollectionMap->map(function ($items, $brandId) use ($brands, $collections) {
+                $collectionModels = $items->pluck('collection_id')
+                    ->unique()
+                    ->map(fn($id) => $collections[$id])
+                    ->filter();
 
-            return [
-                'brand' => $brands[$brandId],
-                'collections' => $collectionModels->values(),
-            ];
-        })->values();
+                return [
+                    'brand' => $brands[$brandId],
+                    'collections' => $collectionModels->values(),
+                ];
+            })->values();
+        });
     }
 
     public function getGroupId()
