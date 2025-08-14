@@ -77,6 +77,7 @@ class Collection extends BaseModel implements Contracts\Collection, SpatieHasMed
     {
 
         $cacheKey = 'brands_img1_'.$this->id;
+
         return Cache::remember($cacheKey, now()->addDay(), function () {
             $collectionIds = $this->children()->pluck('id')->all();
             $brandCollectionMap = DB::table('lunar_products as p')
